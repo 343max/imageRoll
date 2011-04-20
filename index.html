@@ -4,47 +4,13 @@
 	<meta charset="utf-8" />
 	<title>Untitled</title>
 	<script src="jquery-1.5.2.min.js"></script>
+	<script src="imageRoll.js"></script>
 	<script>
-
-function rollImage(el, imgWidth, imgHeight, steps, degrees) {
-	el.css({
-		width: imgWidth + 'px',
-		height: imgHeight + 'px'
-	});
-	for(var i = 0; i < steps; i++) {
-		var element = $('<div>');
-
-		element.css({
-			width: imgWidth,
-			height: imgHeight / steps,
-			'background-position': '0 ' + (imgHeight / steps * -i) + 'px'
-		});
-
-		el.append(element);
-	}
-
-	rerollImage(el, imgWidth, imgHeight, steps, degrees);
-}
-
-function rerollImage(el, imgWidth, imgHeight, steps, degrees) {
-	var radius = imgHeight / (2 * Math.PI) / degrees * 360 * 0.95;
-	var i = 0;
-	el.css('-webkit-transform', 'translateZ(' + -radius + 'px)');
-	el.find('div').each(function() {
-		var element = $(this);
-
-		element.css({
-			'-webkit-transform': 'rotateX(' + (degrees / steps * -i) + 'deg) translateZ(' + radius + 'px)'
-		});
-
-		i++;
-	});
-}
 
 $().ready(function() {
 	var deg = 360;
 	var dir = -1;
-	rollImage($('#img'), 400, 520, 20, deg);
+	$('#img').rollImage('image.jpg', 400, 520, 20, deg);
 
 	window.setInterval(function() {
 		deg += 2 * dir;
@@ -54,7 +20,7 @@ $().ready(function() {
 		if(deg >= 360) {
 			dir = -1;
 		}
-		rerollImage($('#img'), 400, 520, 20, deg);
+		$('#img').rerollImage(deg);
 	}, 50);
 });
 
@@ -67,18 +33,7 @@ body {
 
 div#img {
 	margin: 60px auto;
-	-webkit-transform-style: preserve-3d;
 	-webkit-transform-origin: 50% 50% 0;
-}
-
-div#img div {
-	/* 400x520 */
-	background-image: url(image.jpg);
-	background-repeat: no-repeat;
-
-	position: absolute;
-	left: 0;
-	top: 0;
 }
 
 	</style>
