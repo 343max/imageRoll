@@ -10,7 +10,8 @@
 $().ready(function() {
 	var deg = 360;
 	var dir = -1;
-	$('#img').rollImage('image.jpg', 400, 520, 20, deg);
+	//$('#img').setRollImageDebug(true);
+	$('#img').rollImage('image.jpg', 400, 520, 18, deg);
 
 	window.setInterval(function() {
 		deg += 2 * dir;
